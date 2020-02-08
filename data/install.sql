@@ -64,13 +64,6 @@ INSERT INTO `core_form_field` (`Field_ID`, `type`, `label`, `fieldkey`, `tab`, `
 (NULL, 'text', 'Name', 'label', 'basket-base', 'basket-single', 'col-md-3', '/basket/view/##ID##', '', 0, 1, 0, '', '', '');
 
 --
--- Default Widgets
---
-INSERT INTO `core_widget` (`Widget_ID`, `widget_name`, `label`, `permission`) VALUES
-(NULL, 'basket_dailystats', 'Basket - Daily Stats', 'index-Basket\\Controller\\BasketController'),
-(NULL, 'basket_taginfo', 'Basket - Tag Info', 'index-Basket\\Controller\\BasketController');
-
---
 -- User XP Activity
 --
 INSERT INTO `user_xp_activity` (`Activity_ID`, `xp_key`, `label`, `xp_base`) VALUES

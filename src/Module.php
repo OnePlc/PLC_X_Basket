@@ -24,7 +24,6 @@ use Laminas\Session\Config\StandardConfig;
 use Laminas\Session\SessionManager;
 use Laminas\Session\Container;
 use Application\Controller\CoreEntityController;
-use OnePlace\Basket\Controller\PluginController;
 
 class Module {
     /**
@@ -71,21 +70,10 @@ class Module {
     public function getControllerConfig() : array {
         return [
             'factories' => [
-                # Plugin Example Controller
-                Controller\PluginController::class => function($container) {
-                    $oDbAdapter = $container->get(AdapterInterface::class);
-                    return new Controller\PluginController(
-                        $oDbAdapter,
-                        $container->get(Model\BasketTable::class),
-                        $container
-                    );
-                },
                 # Basket Main Controller
                 Controller\BasketController::class => function($container) {
                     $oDbAdapter = $container->get(AdapterInterface::class);
                     $tableGateway = $container->get(Model\BasketTable::class);
-                    # hook plugin
-                    CoreEntityController::addHook('basket-add-before',(object)['sFunction'=>'testFunction','oItem'=>new PluginController($oDbAdapter,$tableGateway,$container)]);
                     return new Controller\BasketController(
                         $oDbAdapter,
                         $container->get(Model\BasketTable::class),
