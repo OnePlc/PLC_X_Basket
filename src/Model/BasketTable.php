@@ -43,12 +43,13 @@ class BasketTable extends CoreEntityTable {
      * Get Basket Entity
      *
      * @param int $id
+     * @param string $sKey
      * @return mixed
      * @since 1.0.0
      */
-    public function getSingle($id) {
+    public function getSingle($id,$sKey = 'Basket_ID') {
         # Use core function
-        return $this->getSingleEntity($id,'Basket_ID');
+        return $this->getSingleEntity($id,$sKey);
     }
 
     /**
@@ -59,53 +60,18 @@ class BasketTable extends CoreEntityTable {
      * @since 1.0.0
      */
     public function saveSingle(Basket $oBasket) {
-        $aData = [
+        $aDefaultData = [
             'label' => $oBasket->label,
         ];
 
-        $aData = $this->attachDynamicFields($aData,$oBasket);
-
-        $id = (int) $oBasket->id;
-
-        if ($id === 0) {
-            # Add Metadata
-            $aData['created_by'] = CoreController::$oSession->oUser->getID();
-            $aData['created_date'] = date('Y-m-d H:i:s',time());
-            $aData['modified_by'] = CoreController::$oSession->oUser->getID();
-            $aData['modified_date'] = date('Y-m-d H:i:s',time());
-
-            # Insert Basket
-            $this->oTableGateway->insert($aData);
-
-            # Return ID
-            return $this->oTableGateway->lastInsertValue;
-        }
-
-        # Check if Basket Entity already exists
-        try {
-            $this->getSingle($id);
-        } catch (\RuntimeException $e) {
-            throw new \RuntimeException(sprintf(
-                'Cannot update basket with identifier %d; does not exist',
-                $id
-            ));
-        }
-
-        # Update Metadata
-        $aData['modified_by'] = CoreController::$oSession->oUser->getID();
-        $aData['modified_date'] = date('Y-m-d H:i:s',time());
-
-        # Update Basket
-        $this->oTableGateway->update($aData, ['Basket_ID' => $id]);
-
-        return $id;
+        return $this->saveSingleEntity($oBasket,'Basket_ID',$aDefaultData);
     }
 
     /**
      * Generate new single Entity
      *
      * @return Basket
-     * @since 1.0.0
+     * @since 1.0.1
      */
     public function generateNew() {
         return new Basket($this->oTableGateway->getAdapter());

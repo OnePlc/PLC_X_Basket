@@ -38,6 +38,20 @@ return [
                     ],
                 ],
             ],
+            'basket-setup' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route' => '/basket/setup[/:action[/:id]]',
+                    'constraints' => [
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'     => '[0-9]+',
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\InstallController::class,
+                        'action'     => 'checkdb',
+                    ],
+                ],
+            ],
             'basket-api' => [
                 'type'    => Segment::class,
                 'options' => [
