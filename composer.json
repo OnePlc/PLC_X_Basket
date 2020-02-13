@@ -3,7 +3,7 @@
     "description": "onePlace Basket Module",
     "type": "oneplace-module",
     "license": "BSD-3-Clause",
-    "version": "1.0.1",
+    "version": "1.0.1.1",
     "keywords": [
         "laminas",
         "mvc",
@@ -15,11 +15,13 @@
     "require-dev": {
         "phpunit/phpunit": "^8",
         "oneplace/oneplace-core": "^1.0.18",
+        "oneplace/oneplace-tag": "^1.0.6",
         "laminas/laminas-test": "^3.3.0"
     },
     "require": {
         "php": "^7.1",
         "oneplace/oneplace-core": "^1.0.19",
+        "oneplace/oneplace-tag": "^1.0.6",
         "phpoffice/phpspreadsheet": "^1.10"
     },
     "autoload": {
