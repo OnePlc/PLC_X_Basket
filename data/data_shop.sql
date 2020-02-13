@@ -18,7 +18,7 @@ INSERT IGNORE INTO `core_tag` (`Tag_ID`, `tag_key`, `tag_label`, `created_by`, `
 
 INSERT INTO `core_entity_tag` (`Entitytag_ID`, `entity_form_idfs`, `tag_idfs`, `tag_value`, `parent_tag_idfs`, `created_by`, `created_date`, `modified_by`, `modified_date`) VALUES
 (NULL, 'basket-single', (select `Tag_ID` from `core_tag` where `tag_key`='state'), 'new', '0', '1', CURRENT_TIME(), '1', CURRENT_TIME()),
-(NULL, 'basket-single', (select `Tag_ID` from `core_tag` where `tag_key=`'state'), 'checkout', '0', '1', CURRENT_TIME(), '1', CURRENT_TIME()),
+(NULL, 'basket-single', (select `Tag_ID` from `core_tag` where `tag_key`='state'), 'checkout', '0', '1', CURRENT_TIME(), '1', CURRENT_TIME()),
 (NULL, 'basket-single',(select `Tag_ID` from `core_tag` where `tag_key`='state'), 'payment', '0', '1', CURRENT_TIME(), '1', CURRENT_TIME()),
 (NULL, 'basket-single', (select `Tag_ID` from `core_tag` where `tag_key`='state'), 'done', '0', '1', CURRENT_TIME(), '1', CURRENT_TIME()),
 (NULL, 'basket-single', (select `Tag_ID` from `core_tag` where `tag_key`='deliverymethod'), 'E-Mail', '0', '1', CURRENT_TIME(), '1', CURRENT_TIME()),
