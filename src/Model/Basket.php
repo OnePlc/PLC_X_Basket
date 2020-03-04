@@ -19,6 +19,7 @@ use Application\Model\CoreEntityModel;
 
 class Basket extends CoreEntityModel {
     public $label;
+    public $shop_session_id;
 
     /**
      * Basket constructor.
@@ -45,6 +46,7 @@ class Basket extends CoreEntityModel {
     public function exchangeArray(array $aData) {
         $this->id = !empty($aData['Basket_ID']) ? $aData['Basket_ID'] : 0;
         $this->label = !empty($aData['label']) ? $aData['label'] : '';
+        $this->shop_session_id = !empty($aData['shop_session_id']) ? $aData['shop_session_id'] : '';
 
         $this->updateDynamicFields($aData);
     }

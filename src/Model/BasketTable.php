@@ -62,6 +62,7 @@ class BasketTable extends CoreEntityTable {
     public function saveSingle(Basket $oBasket) {
         $aDefaultData = [
             'label' => $oBasket->label,
+            'shop_session_id' => $oBasket->shop_session_id,
         ];
 
         return $this->saveSingleEntity($oBasket,'Basket_ID',$aDefaultData);

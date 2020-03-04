@@ -51,7 +51,6 @@ INSERT INTO `core_form_tab` (`Tab_ID`, `form`, `title`, `subtitle`, `icon`, `cou
 INSERT INTO `core_form_button` (`Button_ID`, `label`, `icon`, `title`, `href`, `class`, `append`, `form`, `mode`, `filter_check`, `filter_value`) VALUES
 (NULL, 'Save Basket', 'fas fa-save', 'Save Basket', '#', 'primary saveForm', '', 'basket-single', 'link', '', ''),
 (NULL, 'Edit Basket', 'fas fa-edit', 'Edit Basket', '/basket/edit/##ID##', 'primary', '', 'basket-view', 'link', '', ''),
-(NULL, 'Add Basket', 'fas fa-plus', 'Add Basket', '/basket/add', 'primary', '', 'basket-index', 'link', '', ''),
 (NULL, 'Export Baskets', 'fas fa-file-excel', 'Export Baskets', '/basket/export', 'primary', '', 'basket-index', 'link', '', ''),
 (NULL, 'Find Baskets', 'fas fa-searh', 'Find Baskets', '/basket/search', 'primary', '', 'basket-index', 'link', '', ''),
 (NULL, 'Export Baskets', 'fas fa-file-excel', 'Export Baskets', '#', 'primary initExcelDump', '', 'basket-search', 'link', '', ''),
