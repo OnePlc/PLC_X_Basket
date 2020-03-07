@@ -15,15 +15,17 @@ INSERT IGNORE INTO `core_tag` (`Tag_ID`, `tag_key`, `tag_label`, `created_by`, `
 (NULL, 'deliverymethod', 'Deliverymethod', '1', '0000-00-00 00:00:00', '1', '0000-00-00 00:00:00'),
 (NULL, 'paymentmethod', 'Paymentmethod', '1', '0000-00-00 00:00:00', '1', '0000-00-00 00:00:00');
 
+COMMIT;
 
-INSERT INTO `core_entity_tag` (`Entitytag_ID`, `entity_form_idfs`, `tag_idfs`, `tag_value`, `parent_tag_idfs`, `created_by`, `created_date`, `modified_by`, `modified_date`) VALUES
-(NULL, 'basket-single', (select `Tag_ID` from `core_tag` where `tag_key`='state'), 'new', '0', '1', CURRENT_TIME(), '1', CURRENT_TIME()),
-(NULL, 'basket-single', (select `Tag_ID` from `core_tag` where `tag_key`='state'), 'checkout', '0', '1', CURRENT_TIME(), '1', CURRENT_TIME()),
-(NULL, 'basket-single',(select `Tag_ID` from `core_tag` where `tag_key`='state'), 'payment', '0', '1', CURRENT_TIME(), '1', CURRENT_TIME()),
-(NULL, 'basket-single', (select `Tag_ID` from `core_tag` where `tag_key`='state'), 'done', '0', '1', CURRENT_TIME(), '1', CURRENT_TIME()),
-(NULL, 'basket-single', (select `Tag_ID` from `core_tag` where `tag_key`='deliverymethod'), 'E-Mail', '0', '1', CURRENT_TIME(), '1', CURRENT_TIME()),
-(NULL, 'basket-single', (select `Tag_ID` from `core_tag` where `tag_key`='deliverymethod'), 'Mail', '0', '1', CURRENT_TIME(), '1', CURRENT_TIME()),
-(NULL, 'basket-single', (select `Tag_ID` from `core_tag` where `tag_key`='paymentmethod'), 'Prepayment', '0', '1', CURRENT_TIME(), '1', CURRENT_TIME()),
-(NULL, 'basket-single', (select `Tag_ID` from `core_tag` where `tag_key`='paymentmethod'), 'Paypal', '0', '1', CURRENT_TIME(), '1', CURRENT_TIME()),
-(NULL, 'basket-single', (select `Tag_ID` from `core_tag` where `tag_key`='paymentmethod'), 'Stripe', '0', '1', CURRENT_TIME(), '1', CURRENT_TIME());
+
+INSERT INTO `core_entity_tag` (`Entitytag_ID`, `entity_form_idfs`, `tag_idfs`, `tag_value`, `tag_icon`, `parent_tag_idfs`, `created_by`, `created_date`, `modified_by`, `modified_date`) VALUES
+(NULL, 'basket-single', (select `Tag_ID` from `core_tag` where `tag_key`='state'), 'new', '', '0', '1', CURRENT_TIME(), '1', CURRENT_TIME()),
+(NULL, 'basket-single', (select `Tag_ID` from `core_tag` where `tag_key`='state'), 'checkout', '', '0', '1', CURRENT_TIME(), '1', CURRENT_TIME()),
+(NULL, 'basket-single',(select `Tag_ID` from `core_tag` where `tag_key`='state'), 'payment', '', '0', '1', CURRENT_TIME(), '1', CURRENT_TIME()),
+(NULL, 'basket-single', (select `Tag_ID` from `core_tag` where `tag_key`='state'), 'done', '', '0', '1', CURRENT_TIME(), '1', CURRENT_TIME()),
+(NULL, 'basket-single', (select `Tag_ID` from `core_tag` where `tag_key`='deliverymethod'), 'E-Mail', '', '0', '1', CURRENT_TIME(), '1', CURRENT_TIME()),
+(NULL, 'basket-single', (select `Tag_ID` from `core_tag` where `tag_key`='deliverymethod'), 'Mail', '', '0', '1', CURRENT_TIME(), '1', CURRENT_TIME()),
+(NULL, 'basket-single', (select `Tag_ID` from `core_tag` where `tag_key`='paymentmethod'), 'Prepayment', 'fas fa-university fa-3x', '0', '1', CURRENT_TIME(), '1', CURRENT_TIME()),
+(NULL, 'basket-single', (select `Tag_ID` from `core_tag` where `tag_key`='paymentmethod'), 'Paypal', 'fab fa-paypal fa-3x', '0', '1', CURRENT_TIME(), '1', CURRENT_TIME()),
+(NULL, 'basket-single', (select `Tag_ID` from `core_tag` where `tag_key`='paymentmethod'), 'Stripe', 'fab fa-cc-stripe fa-3x', '0', '1', CURRENT_TIME(), '1', CURRENT_TIME());
 
