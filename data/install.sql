@@ -70,4 +70,10 @@ INSERT INTO `user_xp_activity` (`Activity_ID`, `xp_key`, `label`, `xp_base`) VAL
 (NULL, 'basket-edit', 'Edit Basket', '5'),
 (NULL, 'basket-export', 'Edit Basket', '5');
 
+--
+-- module icon
+--
+INSERT INTO `settings` (`settings_key`, `settings_value`) VALUES ('basket-icon', 'fas fa-shopping-cart');
+
+
 COMMIT;
