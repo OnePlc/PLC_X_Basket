@@ -75,5 +75,4 @@ INSERT INTO `user_xp_activity` (`Activity_ID`, `xp_key`, `label`, `xp_base`) VAL
 --
 INSERT INTO `settings` (`settings_key`, `settings_value`) VALUES ('basket-icon', 'fas fa-shopping-cart');
 
-
 COMMIT;
