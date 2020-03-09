@@ -52,9 +52,9 @@ INSERT INTO `core_form_button` (`Button_ID`, `label`, `icon`, `title`, `href`, `
 (NULL, 'Save Basket', 'fas fa-save', 'Save Basket', '#', 'primary saveForm', '', 'basket-single', 'link', '', ''),
 (NULL, 'Edit Basket', 'fas fa-edit', 'Edit Basket', '/basket/edit/##ID##', 'primary', '', 'basket-view', 'link', '', ''),
 (NULL, 'Export Baskets', 'fas fa-file-excel', 'Export Baskets', '/basket/export', 'primary', '', 'basket-index', 'link', '', ''),
-(NULL, 'Find Baskets', 'fas fa-searh', 'Find Baskets', '/basket/search', 'primary', '', 'basket-index', 'link', '', ''),
+(NULL, 'Find Baskets', 'fas fa-search', 'Find Baskets', '/basket/search', 'primary', '', 'basket-index', 'link', '', ''),
 (NULL, 'Export Baskets', 'fas fa-file-excel', 'Export Baskets', '#', 'primary initExcelDump', '', 'basket-search', 'link', '', ''),
-(NULL, 'New Search', 'fas fa-searh', 'New Search', '/basket/search', 'primary', '', 'basket-search', 'link', '', '');
+(NULL, 'New Search', 'fas fa-search', 'New Search', '/basket/search', 'primary', '', 'basket-search', 'link', '', '');
 
 --
 -- Fields

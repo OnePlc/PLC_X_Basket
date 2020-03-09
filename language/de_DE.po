@@ -22,3 +22,9 @@ msgstr "Warenkörbe exportieren"
 
 msgid "Find Baskets"
 msgstr "Warenkorb finden"
+
+msgid "Paymentmethod"
+msgstr "Zahlungsmethode"
+
+msgid "Deliverymethod"
+msgstr "Liefermethode"
