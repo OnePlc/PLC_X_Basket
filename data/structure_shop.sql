@@ -8,4 +8,6 @@ ADD `payment_session_id` VARCHAR(255) NOT NULL DEFAULT '' AFTER `label`,
 ADD `payment_id` VARCHAR(255) NOT NULL DEFAULT '' AFTER `label`,
 ADD `comment` TEXT NOT NULL DEFAULT '' AFTER `label`,
 ADD `is_archived_idfs` INT(11) NOT NULL DEFAULT '0' AFTER `Basket_ID`,
-ADD `payment_gateway` VARCHAR(20) NOT NULL DEFAULT 'init' AFTER `label`;
+ADD `payment_gateway` VARCHAR(20) NOT NULL DEFAULT 'init' AFTER `label`,
+ADD `payment_started` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' AFTER `payment_session_id`,
+ADD `payment_received` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' AFTER `payment_started`;

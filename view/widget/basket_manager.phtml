@@ -1,0 +1,135 @@
+<?php
+use Application\Controller\CoreController;
+use Laminas\Db\ResultSet\ResultSet;
+use Laminas\Db\TableGateway\TableGateway;
+
+$aTotalSessions = [];
+
+try {
+    $oBasketTbl = CoreController::$oServiceManager->get(\OnePlace\Basket\Model\BasketTable::class);
+    $oBasketPosTbl = CoreController::$oServiceManager->get(\OnePlace\Basket\Position\Model\PositionTable::class);
+    $oBasketStepTbl = new TableGateway('basket_step', CoreController::$oDbAdapter);
+} catch(\RuntimeException $e) { ?>
+    <div class="alert alert-danger">
+        <?=$this->translate('Could not load basket table')?>
+    </div>
+<?php
+}
+
+# Get State Tag
+$oStateTag = CoreController::$aCoreTables['core-tag']->select(['tag_key' => 'state']);
+$aTotalSessions = [];
+$aSessionsWaiting = [];
+if (count($oStateTag) > 0) {
+    $oStateTag = $oStateTag->current();
+
+# Get Basket "done" Entity State Tag
+    $oNewState = CoreController::$aCoreTables['core-entity-tag']->select([
+        'entity_form_idfs' => 'basket-single',
+        'tag_idfs' => $oStateTag->Tag_ID,
+        'tag_key' => 'new',
+    ]);
+
+    if(count($oNewState) > 0) {
+        $oNewState = $oNewState->current();
+        $aTotalSessionsDB = $oBasketTbl->fetchAll(false, ['state_idfs' => $oNewState->Entitytag_ID]);
+        if(count($aTotalSessionsDB) > 0) {
+            foreach($aTotalSessionsDB as $oBasket) {
+                $aBasketPos = [];
+                $aPosDB = $oBasketPosTbl->fetchAll(false, ['basket_idfs' => $oBasket->getID()]);
+                $dTotal = 0;
+                if(count($aPosDB) > 0) {
+                    foreach($aPosDB as $oPos) {
+                        $aBasketPos[] = $oPos;
+                        $dTotal+=($oPos->amount*$oPos->price);
+                    }
+                }
+                $oBasket->aItems = $aBasketPos;
+                $oBasket->aSteps = $oBasketStepTbl->select(['basket_idfs' => $oBasket->getID()]);
+                $oBasket->dTotal = $dTotal;
+                $aTotalSessions[] = $oBasket;
+                if($oBasket->payment_started != '0000-00-00 00:00:00') {
+                    $aSessionsWaiting[] = $oBasket;
+                }
+            }
+        }
+    }
+}
+
+
+?>
+<div class="col-md-3 col-xl-3">
+    <div class="card">
+        <div class="card-header">
+            <div class="card-actions float-right">
+                <div class="dropdown show">
+                    <a href="#" data-toggle="dropdown" data-display="static">
+                        <i class="align-middle" data-feather="more-horizontal"></i>
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="/basket">Alle Warenkörbe anzeigen</a>
+                        <a class="dropdown-item" href="/basket/sessions">Offene Warenkörbe anzeigen</a>
+                    </div>
+                </div>
+            </div>
+            <h5 class="card-title mb-0">Warenkörbe - Offen</h5>
+        </div>
+        <div class="card-body h-100">
+            <h3 class="badge badge-success" style="font-size:18px; background:orange !important;"><?=count($aTotalSessions)?></h3> Warenkörbe aktuell offen
+            <hr/>
+            <b>Neueste 5 offene Wärenkorbe</b>
+            <ul class="list-group">
+                <?php
+                $iListCounter = 0;
+                $iListLimit = 5;
+                foreach($aTotalSessions as $oSess) {
+                    if($iListCounter == $iListLimit) {
+                        break;
+                    } ?>
+                    <li class="list-group-item">
+                        <a href="<?=$this->url('basket',['action' => 'view', 'id' => $oSess->getID()])?>">
+                            <?=$oSess->shop_session_id?>
+                        </a>
+                        <br/><small>- Erstellt: <?=date('d.m.Y H:i',strtotime($oSess->created_date))?></small>
+                        <br/><small>- Letzte Aktion: <?=date('d.m.Y H:i',strtotime($oSess->modified_date))?> ()</small>
+                        <?=(property_exists($oSess,'oContact')) ? '<br/><small>- '.$oSess->oContact->getLabel().'</small>' : '<br/><small>- (noch keine Kontaktdaten)</small>'?>
+                        <br/>- <small><?=count($oSess->aItems)?> Artikel</small> - <small><?=$oSess->dTotal?> €</small>
+                        <br/>- <small><?=count($oBasket->aSteps)?> Aktivitäten bisher</small>
+                    </li>
+                    <?php
+                    $iListCounter++;
+                }
+                ?>
+            </ul>
+        </div>
+        <div class="card-body h-100">
+            <h3 class="badge badge-success" style="font-size:18px; background:orange !important;"><?=count($aSessionsWaiting)?></h3> Warenkörbe warten auf Zahlungsbestätigung
+            <hr/>
+            <b>Warten auf Zahlungsbestätigung</b>
+            <ul class="list-group">
+                <?php
+                $iListCounter = 0;
+                $iListLimit = 5;
+                foreach($aSessionsWaiting as $oSess) {
+                    if($iListCounter == $iListLimit) {
+                        break;
+                    } ?>
+                    <li class="list-group-item">
+                        <a href="<?=$this->url('basket',['action' => 'view', 'id' => $oSess->getID()])?>">
+                            <?=$oSess->shop_session_id?>
+                        </a>
+                        <br/><small>- Erstellt: <?=date('d.m.Y H:i',strtotime($oSess->created_date))?></small>
+                        <br/><small>- Letzte Aktion: <?=date('d.m.Y H:i',strtotime($oSess->modified_date))?> ()</small>
+                        <?=(property_exists($oSess,'oContact')) ? '<br/><small>- '.$oSess->oContact->getLabel().'</small>' : '<br/><small>- (noch keine Kontaktdaten)</small>'?>
+                        <br/>- <small><?=count($oSess->aItems)?> Artikel</small> - <small><?=$oSess->dTotal?> €</small>
+                        <br/>- <small><?=count($oBasket->aSteps)?> Aktivitäten bisher</small>
+                    </li>
+                    <?php
+                    $iListCounter++;
+                }
+                ?>
+            </ul>
+        </div>
+    </div>
+</div>

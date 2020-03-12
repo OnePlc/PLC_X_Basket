@@ -75,4 +75,11 @@ INSERT INTO `user_xp_activity` (`Activity_ID`, `xp_key`, `label`, `xp_base`) VAL
 --
 INSERT INTO `settings` (`settings_key`, `settings_value`) VALUES ('basket-icon', 'fas fa-shopping-cart');
 
+--
+-- widgets
+--
+INSERT INTO `core_widget` (`Widget_ID`, `widget_name`, `label`, `permission`) VALUES
+(NULL, 'basket_manager', 'Basket - Shop Manager', 'index-Basket\\Controller\\BasketController');
+
+
 COMMIT;

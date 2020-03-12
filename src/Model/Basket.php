@@ -20,6 +20,9 @@ use Application\Model\CoreEntityModel;
 class Basket extends CoreEntityModel {
     public $label;
     public $shop_session_id;
+    public $payment_id;
+    public $payment_session_id;
+    public $payment_received;
 
     /**
      * Basket constructor.
@@ -47,6 +50,9 @@ class Basket extends CoreEntityModel {
         $this->id = !empty($aData['Basket_ID']) ? $aData['Basket_ID'] : 0;
         $this->label = !empty($aData['label']) ? $aData['label'] : '';
         $this->shop_session_id = !empty($aData['shop_session_id']) ? $aData['shop_session_id'] : '';
+        $this->payment_id = !empty($aData['payment_id']) ? $aData['payment_id'] : '';
+        $this->payment_session_id = !empty($aData['payment_session_id']) ? $aData['payment_session_id'] : '';
+        $this->payment_received = !empty($aData['payment_received']) ? $aData['payment_received'] : '0000-00-00 00:00:00';
 
         $this->updateDynamicFields($aData);
     }
