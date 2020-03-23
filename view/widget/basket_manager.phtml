@@ -32,7 +32,7 @@ if (count($oStateTag) > 0) {
 
     if(count($oNewState) > 0) {
         $oNewState = $oNewState->current();
-        $aTotalSessionsDB = $oBasketTbl->fetchAll(false, ['state_idfs' => $oNewState->Entitytag_ID]);
+        $aTotalSessionsDB = $oBasketTbl->fetchAll(false, ['state_idfs' => $oNewState->Entitytag_ID,'is_archived_idfs' => 0]);
         if(count($aTotalSessionsDB) > 0) {
             foreach($aTotalSessionsDB as $oBasket) {
                 $aBasketPos = [];
