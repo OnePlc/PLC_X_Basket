@@ -74,10 +74,20 @@ class Module {
                 Controller\BasketController::class => function($container) {
                     $oDbAdapter = $container->get(AdapterInterface::class);
                     $tableGateway = $container->get(Model\BasketTable::class);
+                    $oBasketStepTbl = new TableGateway('basket_step', $oDbAdapter);
+                    $oBasketPosTbl = new TableGateway('basket_position', $oDbAdapter);
+                    $oJobTbl = $container->get(\OnePlace\Job\Model\JobTable::class);
+                    $oJobPosTbl = new TableGateway('job_position', $oDbAdapter);
                     return new Controller\BasketController(
                         $oDbAdapter,
                         $container->get(Model\BasketTable::class),
-                        $container
+                        $container,
+                        [
+                            'basket-step' => $oBasketStepTbl,
+                            'basket-position' => $oBasketPosTbl,
+                            'job' => $oJobTbl,
+                            'job-position' => $oJobPosTbl,
+                        ]
                     );
                 },
                 # Api Plugin

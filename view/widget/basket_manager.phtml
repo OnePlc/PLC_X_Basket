@@ -7,6 +7,7 @@ $aTotalSessions = [];
 
 try {
     $oBasketTbl = CoreController::$oServiceManager->get(\OnePlace\Basket\Model\BasketTable::class);
+    $oContactTbl = CoreController::$oServiceManager->get(\OnePlace\Contact\Model\ContactTable::class);
     $oBasketPosTbl = CoreController::$oServiceManager->get(\OnePlace\Basket\Position\Model\PositionTable::class);
     $oBasketStepTbl = new TableGateway('basket_step', CoreController::$oDbAdapter);
 } catch(\RuntimeException $e) { ?>
@@ -48,7 +49,8 @@ if (count($oStateTag) > 0) {
                 $oBasket->aSteps = $oBasketStepTbl->select(['basket_idfs' => $oBasket->getID()]);
                 $oBasket->dTotal = $dTotal;
                 $aTotalSessions[] = $oBasket;
-                if($oBasket->payment_started != '0000-00-00 00:00:00') {
+                if($oBasket->contact_idfs != 0) {
+                    $oBasket->oContact = $oContactTbl->getSingle($oBasket->contact_idfs);
                     $aSessionsWaiting[] = $oBasket;
                 }
             }
